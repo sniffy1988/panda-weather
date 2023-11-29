@@ -3,10 +3,11 @@
 </template>
     
 <script setup lang='ts'>
+import type { PropType } from 'vue'
 const props = defineProps({
     city: {
         required: true,
-        type: String
+        type: Object as PropType<iCity>
     }
 })
 </script>

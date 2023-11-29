@@ -1,9 +1,11 @@
 
 <template>
-    <div>
-        <button @click="toggleSearch">{{ isSearchOpen ? 'Close' : "Open" }}</button>
-        <SearchInput v-if="isSearchOpen" @toggle="toggleSearch" />
-        <div v-for="city, idx of citiesList" :key="idx" v-if="citiesList.length">
+    <div class="cards">
+        <div>
+            <button @click="toggleSearch">{{ isSearchOpen ? 'Close' : "Open" }}</button>
+            <SearchInput v-if="isSearchOpen" @toggle="toggleSearch" />
+        </div>
+        <div v-for="city, idx of citiesList" :key="idx" v-if="citiesList.length" class="cards__list">
             <Card :city="city" />
         </div>
         <DefaultCity v-else />
@@ -28,5 +30,9 @@ const toggleSearch = () => {
 </script>
     
 <style>
-    
+    .cards {
+        &__list {
+            @apply flex;
+        }
+    }
 </style>

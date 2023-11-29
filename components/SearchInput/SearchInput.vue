@@ -9,7 +9,7 @@
                         <div v-for="cityName, idx in citiesList" :key="idx" class="search__autocomplete__list__item">
                             <Transition name="fade">
                                 <div class="search__autocomplete__list__item__text">
-                                    {{ cityName }}
+                                    {{ cityName.name }}, {{ cityName.state }}, {{ cityName.country }}
                                     <span class="search__autocomplete__list__item__icon" @click="addCity(cityName)"
                                         v-show="!isAlreadyHaveCity(cityName)">+</span>
                                     <span class="search__autocomplete__list__item__icon" @click="removeCity(cityName)"
@@ -38,7 +38,9 @@ const emits = defineEmits(['toggle'])
 
 const makeSearch = async () => {
     if (city.value.length >= PASSLIMIT) {
-        citiesList.value = await $api.getCity(city.value)
+        const res = await $api.getCity(city.value)
+        const data = await res.json();
+        citiesList.value = data;
     }
 }
 
@@ -49,17 +51,24 @@ const isHaveList = computed(() => {
 });
 const makeClear = () => {
     city.value = '';
+    citiesList.value = [];
 }
-const addCity = (city: string) => {
-    store.addCity(city);
+const addCity = (city: any) => {
+    store.addCity({
+        name: city.name,
+        lat: city.lat,
+        lon: city.lon
+    });
+    citiesList.value = [];
     emits('toggle');
 }
-const removeCity = (city: string) => {
+const removeCity = (city: ICity) => {
     store.removeCity(city);
+    citiesList.value = [];
     emits('toggle');
 }
-const isAlreadyHaveCity = (name: string) => {
-    return store.cities.find(el => el === name);
+const isAlreadyHaveCity = (name: any) => {
+    return store.cities.find(el => el.lat === name.lat && el.lon === name.lon);
 };
 </script>
     

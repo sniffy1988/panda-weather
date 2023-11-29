@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   modules: ['@nuxtjs/tailwindcss',[
       '@nuxtjs/i18n',
       { /* module options */ },
-  ], '@pinia/nuxt', '@pinia-plugin-persistedstate/nuxt'],
+  ], '@pinia/nuxt', '@pinia-plugin-persistedstate/nuxt', 'nuxt-highcharts'],
   pinia: {
     storesDirs: ['./stores/**'],
   },

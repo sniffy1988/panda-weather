@@ -2,17 +2,17 @@ import { defineStore } from 'pinia';
 
 export const useCityStore = defineStore('city', {
     state: () => ({
-        cities: [] as String[],
+        cities: [] as ICity[],
     }),
     getters: {
         getCities: (state) => state.cities,
     },
     actions: {
-        addCity(city:string) {
+        addCity(city:ICity) {
             this.cities.push(city);
         },
-        removeCity(city: string) {
-            const indexofCity = this.cities.findIndex((el) => el === city);
+        removeCity(city: ICity) {
+            const indexofCity = this.cities.findIndex((el) => el.lat === city.lat);
             if (indexofCity !== -1) {
                 this.cities.splice(indexofCity, 1)
             }
