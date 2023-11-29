@@ -10,9 +10,9 @@ export default defineNuxtPlugin(nuxtApp => {
                 getForecast: (city: unknown):any => {
                     console.log('forecast for ', city)
                 },
-                getCity: (city: string): any => {
+                getCity: async (city: string) => {
                     console.log('looking for city:', city, API_KEY)
-                    return city
+                    return ['City1', 'City2', 'City3']
                 }
             }
         }

@@ -1,19 +1,12 @@
 <template>
   <div class="container mx-auto">
-    <SearchInput />
-    <div>
-      <div>card</div>
-      <div>card</div>
-      <div>card</div>
-      <div>card</div>
-      <div>card</div>
-    </div>
+    <CardsList />
     <div>Fav</div>
   </div>
 </template>
   
 <script setup lang='ts'>
-import SearchInput from './components/SearchInput/SearchInput.vue';
+import CardsList from './components/CardsList/CardsList.vue'
 </script>
   
 <style>
