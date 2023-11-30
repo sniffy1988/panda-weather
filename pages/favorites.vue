@@ -13,11 +13,11 @@
         <Transition name="fade">
             <Popup v-if="isPopupOpen">
                 <template #head>
-                    <h4 class="popup__title">Remove from Fav</h4>
+                    <h4 class="popup__title">{{ $t('removeFav') }}</h4>
                 </template>
                 <template #actions>
-                    <button class="popup__action popup__action--success" @click="onOkClick">Ok</button>
-                    <button class="popup__action popup__action--fail" @click="closePopup">Cancel</button>
+                    <button class="popup__action popup__action--success" @click="onOkClick">{{ $t('ok') }}</button>
+                    <button class="popup__action popup__action--fail" @click="closePopup">{{ $t('cancel') }}</button>
                 </template>
             </Popup>
         </Transition>

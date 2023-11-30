@@ -28,53 +28,44 @@
             <Transition name="fade">
                 <Popup v-if="isDeletePopup">
                     <template #head>
-                        <h4 class="popup__title">Remove</h4>
+                        <h4 class="popup__title">{{ $t('remove') }}</h4>
                     </template>
                     <template #actions>
-                        <button class="popup__action popup__action--success" @click="onOkClick">Ok</button>
-                        <button class="popup__action popup__action--fail" @click="closePopup">Cancel</button>
+                        <button class="popup__action popup__action--success" @click="onOkClick">{{ $t('ok') }}</button>
+                        <button class="popup__action popup__action--fail" @click="closePopup">{{ $t('cancel') }}</button>
+                    </template>
+                </Popup>
+            </Transition>
+            <Transition name="fade">
+                <Popup v-if="isDeleteFavPopup">
+                    <template #head>
+                        <h4 class="popup__title">{{ $t('removeFav') }}</h4>
+                    </template>
+                    <template #actions>
+                        <button class="popup__action popup__action--success" @click="onOkFavClick">{{ $t('ok') }}</button>
+                        <button class="popup__action popup__action--fail" @click="closePopup">{{ $t('cancel') }}</button>
                     </template>
                 </Popup>
             </Transition>
             <Transition name="fade">
                 <Popup v-if="isFullPopup">
                     <template #head>
-                        <h4 class="popup__title">Remove from Fav</h4>
+                        <h4 class="popup__title">{{ $t('maxShow') }}</h4>
                     </template>
                     <template #actions>
-                        <button class="popup__action popup__action--success" @click="onOkFavClick">Ok</button>
-                        <button class="popup__action popup__action--fail" @click="closePopup">Cancel</button>
-                    </template>
-                </Popup>
-            </Transition>
-            <Transition name="fade">
-                <Popup v-if="isDeletePopup">
-                    <template #head>
-                        <h4 class="popup__title">Remove</h4>
-                    </template>
-                    <template #actions>
-                        <button class="popup__action popup__action--success" @click="onOkClick">Ok</button>
-                        <button class="popup__action popup__action--fail" @click="closePopup">Cancel</button>
-                    </template>
-                </Popup>
-            </Transition>
-            <Transition name="fade">
-                <Popup v-if="isFullPopup">
-                    <template #head>
-                        <h4 class="popup__title">Maximum is 5 cities to show</h4>
-                    </template>
-                    <template #actions>
-                        <button class="popup__action popup__action--success" @click="isFullPopup = false">Ok</button>
+                        <button class="popup__action popup__action--success" @click="isFullPopup = false">{{ $t('ok')
+                        }}</button>
                     </template>
                 </Popup>
             </Transition>
             <Transition name="fade">
                 <Popup v-if="isFullFavPopup">
                     <template #head>
-                        <h4 class="popup__title">You can add only 5 cities to fav</h4>
+                        <h4 class="popup__title">{{ $t('maxFav') }}</h4>
                     </template>
                     <template #actions>
-                        <button class="popup__action popup__action--success" @click="isFullFavPopup = false">Ok</button>
+                        <button class="popup__action popup__action--success" @click="isFullFavPopup = false">{{ $t('ok')
+                        }}</button>
                     </template>
                 </Popup>
             </Transition>

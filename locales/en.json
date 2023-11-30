@@ -8,5 +8,9 @@
   "removeFav": "Remove from Fav",
   "search": "Search your city",
   "searchBtn": "Search",
-  "clear": "Clear"
+  "clear": "Clear",
+  "ok": "Ok",
+  "cancel": "Cancel",
+  "maxShow": "Maximum is 5 cities to show",
+  "maxFav": "Maximum is 5 cities to save"
 }
