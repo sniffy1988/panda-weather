@@ -3,8 +3,11 @@
     <div class="app__header">
       <div class="container mx-auto">
         <div class="app__header__nav">
-          <NuxtLink to="/" class="app__header__nav__link">Home</NuxtLink>
-          <NuxtLink to="/favorites" class="app__header__nav__link">Favs</NuxtLink>
+          <NuxtLink to="/" class="app__header__nav__link">{{ $t('home') }}</NuxtLink>
+          <NuxtLink to="/favorites" class="app__header__nav__link">{{ $t('favs') }}</NuxtLink>
+          <NuxtLink v-for="locale in availableLocales" :key="locale.code" :to="switchLocalePath(locale.code)">{{
+            locale.name
+          }}</NuxtLink>
         </div>
       </div>
     </div>
@@ -14,7 +17,7 @@
           <NuxtPage />
         </NuxtLayout>
         <div>
-          TODO: 1. I18n 2. date-fns 3. Favs 4. responsive
+          TODO: 1. I18n 4. responsive
         </div>
       </div>
     </div>
@@ -27,6 +30,12 @@
 </template>
   
 <script setup lang='ts'>
+const { locale, locales } = useI18n()
+const switchLocalePath = useSwitchLocalePath()
+
+const availableLocales = computed(() => {
+  return (locales.value).filter(i => i.code !== locale.value)
+})
 </script>
   
 <style>

@@ -1,14 +1,25 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ['@nuxtjs/tailwindcss',[
-      '@nuxtjs/i18n',
-      { /* module options */ },
-  ], '@pinia/nuxt', '@pinia-plugin-persistedstate/nuxt', 'nuxt-highcharts'],
+  modules: ['@nuxtjs/tailwindcss','@nuxtjs/i18n', '@pinia/nuxt', '@pinia-plugin-persistedstate/nuxt', 'nuxt-highcharts'],
   pinia: {
     storesDirs: ['./stores/**'],
   },
-  plugins: ['~/plugins/weather'],
+  i18n: {
+    locales: [{
+      code: 'en',
+      file: 'en.json',
+      name: 'English'
+    }, {
+      code: 'uk',
+      file: 'uk.json',
+      name: 'Українська'
+      }],
+      defaultLocale: 'en',
+      lazy: true,
+      langDir: 'locales',
+  },
+  plugins: ['~/plugins/weather', '~/plugins/dateFns'],
   runtimeConfig: {
     NUXT_API_KEY: process.env.API_KEY,
     NUXT_IP_KEY: process.env.IP_KEY,

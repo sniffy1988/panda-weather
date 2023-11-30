@@ -5,7 +5,7 @@
 <script setup lang='ts'>
 import Card from '~/components/Card/Card.vue'
 
-const ipData = ref(null) as unknown;
+const ipData = ref(null) as Ref<any>;
 const { $api } = useNuxtApp();
 
 onMounted(async () => {

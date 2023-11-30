@@ -22,21 +22,26 @@ import Switcher from '~/components/Switcher/Switcher.vue'
 const props = defineProps({
     city: {
         required: true,
-        type: Object as PropType<iCity>
+        type: Object as PropType<ICity>
     }
 });
-import('highcharts/highcharts').Options;
-const { $api } = useNuxtApp();
+const { $api, $datefns } = useNuxtApp();
 const emits = defineEmits(['delete', 'fav'])
-const weather = ref(null) as unknown;
-const forecast = ref(null) as unknown;
+const weather = ref(null) as Ref<any>;
+const forecast = ref(null) as Ref<any>;
 const chartOptions = ref({
     title: {
         text: 'Forecast',
         align: 'left'
     },
     xAxis: {
-        categories: []
+        categories: [],
+        labels: {
+            formatter({ value }: any) {
+                return $datefns.format(new Date(value), isDay.value ? "HH:mm" : 'dd-LL HH:mm')
+            }
+        }
+
     },
     yAxis: {
         title: {
@@ -49,7 +54,7 @@ const chartOptions = ref({
                 enabled: true
             },
             // enableMouseTracking: false
-        }
+        },
     },
     series: [{
         data: []
