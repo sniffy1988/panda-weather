@@ -6,7 +6,7 @@
         <div class="weather__cond">{{ weather.weather[0].description }}</div>
 
         <div class="flex">
-            <div class="mr-2">5 Days</div>
+            <div class="mr-2">{{ $t('days') }}</div>
             <Switcher :checked="!isDay" @change="toggleDay"></Switcher>
         </div>
         <div>
@@ -26,12 +26,13 @@ const props = defineProps({
     }
 });
 const { $api, $datefns } = useNuxtApp();
+const { t: $t } = useI18n();
 const emits = defineEmits(['delete', 'fav'])
 const weather = ref(null) as Ref<any>;
 const forecast = ref(null) as Ref<any>;
 const chartOptions = ref({
     title: {
-        text: 'Forecast',
+        text: $t('forecast'),
         align: 'left'
     },
     xAxis: {
@@ -45,7 +46,7 @@ const chartOptions = ref({
     },
     yAxis: {
         title: {
-            text: 'Temperature (°C)'
+            text: '°C'
         }
     },
     plotOptions: {
@@ -53,8 +54,11 @@ const chartOptions = ref({
             dataLabels: {
                 enabled: true
             },
-            // enableMouseTracking: false
+            legend: false
         },
+    },
+    legend: {
+        enabled: false
     },
     series: [{
         data: []
@@ -102,7 +106,6 @@ const buildGraph = () => {
             return el.dt_txt
         });
         chartOptions.value.series = [{
-            name: 'Temperature',
             data: temps
         }];
         chartOptions.value.xAxis.categories = datas;
@@ -120,7 +123,6 @@ const buildGraph = () => {
             return el.dt_txt
         });
         chartOptions.value.series = [{
-            name: 'Temperature',
             data: temps
         }];
         chartOptions.value.xAxis.categories = datas;
