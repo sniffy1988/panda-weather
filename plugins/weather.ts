@@ -6,15 +6,15 @@ export default defineNuxtPlugin(nuxtApp => {
         provide: {
             api: {
                 getWeather: async (city: ICity) => {
-                    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${city.lat}&lon=${city.lon}&units=metric&appid=${API_KEY}`
+                    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${city.lat}&lon=${city.lon}&units=metric&lang=${nuxtApp.$i18n.locale.value}&appid=${API_KEY}`
                     return fetch(url);
                 },
                 getForecast: (city: ICity) => {
-                     const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${city.lat}&lon=${city.lon}&units=metric&appid=${API_KEY}`
+                     const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${city.lat}&lon=${city.lon}&units=metric&lang=${nuxtApp.$i18n.locale.value}&appid=${API_KEY}`
                     return fetch(url);
                 },
                 getCity: async (city: string) => {
-                    const url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${API_KEY}`
+                    const url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&lang=${nuxtApp.$i18n.locale.value}&appid=${API_KEY}`
                     return fetch(url);
                 },
                 getIpData: async () => {

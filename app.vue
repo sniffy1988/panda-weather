@@ -5,9 +5,8 @@
         <div class="app__header__nav">
           <NuxtLink to="/" class="app__header__nav__link">{{ $t('home') }}</NuxtLink>
           <NuxtLink to="/favorites" class="app__header__nav__link">{{ $t('favs') }}</NuxtLink>
-          <NuxtLink v-for="locale in availableLocales" :key="locale.code" :to="switchLocalePath(locale.code)">{{
-            locale.name
-          }}</NuxtLink>
+          <a href="#" v-for="locale in availableLocales" :key="locale.code" class="hover:underline"
+            @click.prevent.stop="changeLocale(locale.code)">{{ locale.name }}</a>
         </div>
       </div>
     </div>
@@ -16,9 +15,6 @@
         <NuxtLayout>
           <NuxtPage />
         </NuxtLayout>
-        <div>
-          TODO: 3. Popups 4. i18n API
-        </div>
       </div>
     </div>
     <div class="app__footer">
@@ -30,12 +26,14 @@
 </template>
   
 <script setup lang='ts'>
-const { locale, locales } = useI18n()
-const switchLocalePath = useSwitchLocalePath()
+const { locale, locales, setLocale } = useI18n()
 
 const availableLocales = computed(() => {
-  return (locales.value).filter(i => i.code !== locale.value)
-})
+  return (locales.value).filter((i: any) => i.code !== locale.value)
+});
+const changeLocale = (locale: any) => {
+  setLocale(locale);
+}
 </script>
   
 <style>

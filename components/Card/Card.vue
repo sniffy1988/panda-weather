@@ -17,6 +17,7 @@
     
 <script setup lang='ts'>
 import type { PropType } from 'vue'
+import { getCurrentInstance } from 'vue';
 import Switcher from '~/components/Switcher/Switcher.vue'
 
 const props = defineProps({
@@ -25,7 +26,12 @@ const props = defineProps({
         type: Object as PropType<ICity>
     }
 });
+const { locale } = useI18n()
+const shallow = shallowRef({
+    count: 0
+})
 const { $api, $datefns } = useNuxtApp();
+const $nuxt = useNuxtApp()
 const { t: $t } = useI18n();
 const emits = defineEmits(['delete', 'fav'])
 const weather = ref(null) as Ref<any>;
@@ -71,7 +77,7 @@ const toggleDay = () => {
     isDay.value = !isDay.value;
     buildGraph();
 }
-onMounted(async () => {
+const getData = async () => {
     try {
         try {
             const res = await $api.getWeather(props.city)
@@ -93,7 +99,9 @@ onMounted(async () => {
     finally {
         isLoading.value = false;
     }
-
+}
+onMounted(() => {
+    getData();
 })
 const buildGraph = () => {
     const today = new Date();
@@ -130,6 +138,10 @@ const buildGraph = () => {
 }
 watch(forecast, () => {
     buildGraph();
+});
+
+watch(locale, () => {
+    getData();
 });
 </script>
     
