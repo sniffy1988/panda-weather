@@ -5,8 +5,11 @@
             <button @click="toggleSearch">{{ isSearchOpen ? 'Close' : "Open" }}</button>
             <SearchInput v-if="isSearchOpen" @toggle="toggleSearch" />
         </div>
-        <div v-for="city, idx of citiesList" :key="idx" v-if="citiesList.length" class="cards__list">
-            <Card :city="city" />
+        <div v-if="citiesList.length" class="cards__list">
+            <div v-for="city, idx of citiesList" :key="idx" class="px-2 w-1/2 mb-2">
+                <Card :city="city" />
+
+            </div>
         </div>
         <DefaultCity v-else />
         <div>Store is: {{ citiesList }}</div>
@@ -32,7 +35,7 @@ const toggleSearch = () => {
 <style>
     .cards {
         &__list {
-            @apply flex;
+            @apply flex flex-wrap -mx-2;
         }
     }
 </style>

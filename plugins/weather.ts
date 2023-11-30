@@ -5,12 +5,12 @@ export default defineNuxtPlugin(nuxtApp => {
     return {
         provide: {
             api: {
-                getWeather: async(city: unknown) => {
-                    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`
+                getWeather: async (city: ICity) => {
+                    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${city.lat}&lon=${city.lon}&units=metric&appid=${API_KEY}`
                     return fetch(url);
                 },
-                getForecast: (city: unknown): any => {
-                     const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${API_KEY}`
+                getForecast: (city: ICity) => {
+                     const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${city.lat}&lon=${city.lon}&units=metric&appid=${API_KEY}`
                     return fetch(url);
                 },
                 getCity: async (city: string) => {
