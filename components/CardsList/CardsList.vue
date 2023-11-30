@@ -37,13 +37,44 @@
                 </Popup>
             </Transition>
             <Transition name="fade">
-                <Popup v-if="isDeleteFavPopup">
+                <Popup v-if="isFullPopup">
                     <template #head>
                         <h4 class="popup__title">Remove from Fav</h4>
                     </template>
                     <template #actions>
                         <button class="popup__action popup__action--success" @click="onOkFavClick">Ok</button>
                         <button class="popup__action popup__action--fail" @click="closePopup">Cancel</button>
+                    </template>
+                </Popup>
+            </Transition>
+            <Transition name="fade">
+                <Popup v-if="isDeletePopup">
+                    <template #head>
+                        <h4 class="popup__title">Remove</h4>
+                    </template>
+                    <template #actions>
+                        <button class="popup__action popup__action--success" @click="onOkClick">Ok</button>
+                        <button class="popup__action popup__action--fail" @click="closePopup">Cancel</button>
+                    </template>
+                </Popup>
+            </Transition>
+            <Transition name="fade">
+                <Popup v-if="isFullPopup">
+                    <template #head>
+                        <h4 class="popup__title">Maximum is 5 cities to show</h4>
+                    </template>
+                    <template #actions>
+                        <button class="popup__action popup__action--success" @click="isFullPopup = false">Ok</button>
+                    </template>
+                </Popup>
+            </Transition>
+            <Transition name="fade">
+                <Popup v-if="isFullFavPopup">
+                    <template #head>
+                        <h4 class="popup__title">You can add only 5 cities to fav</h4>
+                    </template>
+                    <template #actions>
+                        <button class="popup__action popup__action--success" @click="isFullFavPopup = false">Ok</button>
                     </template>
                 </Popup>
             </Transition>
@@ -61,6 +92,8 @@ const store = useCityStore();
 
 const isDeleteFavPopup = ref(false);
 const isDeletePopup = ref(false);
+const isFullPopup = ref(false);
+const isFullFavPopup = ref(false);
 const toDelete = ref(null) as any;
 const toDeleteFav = ref(null) as any;
 
@@ -97,7 +130,7 @@ const addBlock = () => {
             city: null
         });
     } else {
-        alert('To continue remove city')
+        isFullPopup.value = true;
     }
 }
 
@@ -115,7 +148,11 @@ const removeCity = (idx: number) => {
 }
 
 const addToFav = (city: iCity) => {
-    store.addCity(city);
+    if (store.cities.length < store.limit) {
+        store.addCity(city);
+    } else {
+        isFullFavPopup.value = true;
+    }
 }
 
 const isInFav = (city: iCity | null) => {
