@@ -1,6 +1,6 @@
 <template>
     <div class="search">
-        <h4 class="search__title">Search your city:</h4>
+        <h4 class="search__title">{{ $t('search') }}</h4>
         <div class="search__actions">
             <div class="search__autocomplete">
                 <input type="text" class="search__input" v-model="city">
@@ -17,8 +17,8 @@
                     </TransitionGroup>
                 </div>
             </div>
-            <button class="search__button" @click="makeSearch">Search</button>
-            <button class="search__button" @click="makeClear" v-if="city">Clear</button>
+            <button class="search__button" @click="makeSearch">{{ $t('searchBtn') }}</button>
+            <button class="search__button" @click="makeClear" v-if="city">{{ $t('clear') }}</button>
         </div>
     </div>
 </template>

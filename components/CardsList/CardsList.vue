@@ -8,11 +8,12 @@
                     <DefaultCity v-if="cit.city === null" />
                     <Card :city="cit.city" v-else />
                     <div class="block__item__actions">
-                        <button @click="removeCity(idx)" v-if="!(idx === 0 && cit.city === null)">Remove</button>
-                        <button @click="addToFav(cit.city)" v-if="cit.city !== null && !isInFav(cit.city)">Add to
-                            fav</button>
-                        <button @click="removeFromFav(cit.city)" v-if="cit.city !== null && isInFav(cit.city)">Remove from
-                            fav</button>
+                        <button @click="removeCity(idx)" v-if="!(idx === 0 && cit.city === null)">{{ $t('remove')
+                        }}</button>
+                        <button @click="addToFav(cit.city)" v-if="cit.city !== null && !isInFav(cit.city)">{{ $t('addFav')
+                        }}</button>
+                        <button @click="removeFromFav(cit.city)" v-if="cit.city !== null && isInFav(cit.city)">{{
+                            $t('removeFav') }}</button>
                     </div>
                 </div>
 
@@ -23,6 +24,30 @@
                 </div>
             </button>
         </div>
+        <teleport to="body">
+            <Transition name="fade">
+                <Popup v-if="isDeletePopup">
+                    <template #head>
+                        <h4 class="popup__title">Remove</h4>
+                    </template>
+                    <template #actions>
+                        <button class="popup__action popup__action--success" @click="onOkClick">Ok</button>
+                        <button class="popup__action popup__action--fail" @click="closePopup">Cancel</button>
+                    </template>
+                </Popup>
+            </Transition>
+            <Transition name="fade">
+                <Popup v-if="isDeleteFavPopup">
+                    <template #head>
+                        <h4 class="popup__title">Remove from Fav</h4>
+                    </template>
+                    <template #actions>
+                        <button class="popup__action popup__action--success" @click="onOkFavClick">Ok</button>
+                        <button class="popup__action popup__action--fail" @click="closePopup">Cancel</button>
+                    </template>
+                </Popup>
+            </Transition>
+        </teleport>
     </div>
 </template>
     
@@ -30,11 +55,37 @@
 import SearchInput from '~/components/SearchInput/SearchInput.vue';
 import DefaultCity from '~/components/DefaultCity/DefaultCity.vue'
 import Card from '~/components/Card/Card.vue'
-
-
 import { useCityStore } from '~/stores/city';
+
 const store = useCityStore();
 
+const isDeleteFavPopup = ref(false);
+const isDeletePopup = ref(false);
+const toDelete = ref(null) as any;
+const toDeleteFav = ref(null) as any;
+
+const closePopup = () => {
+    isDeleteFavPopup.value = false;
+    isDeletePopup.value = false;
+    toDelete.value = null;
+    toDeleteFav.value = null;
+}
+
+const onOkClick = () => {
+    if (cities.value.length - 1 === 0) {
+        cities.value = [{
+            city: null
+        }]
+    } else {
+        cities.value.splice(toDelete.value, 1)
+    }
+    isDeletePopup.value = false;
+}
+
+const onOkFavClick = () => {
+    store.removeCity(toDeleteFav.value);
+    isDeleteFavPopup.value = false;
+}
 const cities = ref([{
     city: null
 }]);
@@ -59,13 +110,8 @@ const addCity = (index: number, city: Icity) => {
 
 const removeCity = (idx: number) => {
     // show popup
-    if (cities.value.length - 1 === 0) {
-        cities.value = [{
-            city: null
-        }]
-    } else {
-        cities.value.splice(idx, 1)
-    }
+    toDelete.value = idx;
+    isDeletePopup.value = true;
 }
 
 const addToFav = (city: iCity) => {
@@ -83,7 +129,8 @@ const isInFav = (city: iCity | null) => {
 }
 
 const removeFromFav = (city: iCity) => {
-    store.removeCity(city);
+    isDeleteFavPopup.value = true;
+    toDeleteFav.value = city;
 }
 
 </script>
@@ -106,7 +153,7 @@ const removeFromFav = (city: iCity) => {
     }
 
     .block {
-        @apply px-2 w-1/3  rounded-lg;
+        @apply px-2 w-full sm:w-1/2 lg:w-1/3 rounded-lg mb-2;
 
         &__item {
             @apply w-full border-2 p-2 rounded-lg border-green-700 hover:bg-gray-400;

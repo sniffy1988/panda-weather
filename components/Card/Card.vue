@@ -9,7 +9,7 @@
             <div class="mr-2">{{ $t('days') }}</div>
             <Switcher :checked="!isDay" @change="toggleDay"></Switcher>
         </div>
-        <div>
+        <div class="mt-2">
             <highchart :options="chartOptions" />
         </div>
     </div>

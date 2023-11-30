@@ -2,5 +2,11 @@
   "home": "Home",
   "favs": "Favorite cities",
   "days": "5 Days",
-  "forecast": "Forecast"
+  "forecast": "Forecast",
+  "remove": "Remove",
+  "addFav": "Add to Fav",
+  "removeFav": "Remove from Fav",
+  "search": "Search your city",
+  "searchBtn": "Search",
+  "clear": "Clear"
 }

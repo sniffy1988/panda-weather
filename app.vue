@@ -17,7 +17,7 @@
           <NuxtPage />
         </NuxtLayout>
         <div>
-          TODO: 1. I18n 4. responsive 3. Popups
+          TODO: 3. Popups 4. i18n API
         </div>
       </div>
     </div>
