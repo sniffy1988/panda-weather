@@ -3,6 +3,7 @@ import { defineStore } from 'pinia';
 export const useCityStore = defineStore('city', {
     state: () => ({
         cities: [] as ICity[],
+        limit: 5
     }),
     getters: {
         getCities: (state) => state.cities,

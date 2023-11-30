@@ -1,9 +1,8 @@
 <template>
-    <CardsList />
+    This is Favorites
 </template>
     
 <script setup lang='ts'>
-import CardsList from '~/components/CardsList/CardsList.vue'
 
 </script>
     

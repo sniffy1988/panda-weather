@@ -1,7 +1,5 @@
 <template>
-    <div class="weather">
-        <Card :city="city" v-if="ipData" />
-    </div>
+    <Card :city="city" v-if="ipData" />
 </template>
     
 <script setup lang='ts'>
@@ -30,13 +28,4 @@ const city = computed(() => {
 </script>
     
 <style>
-    .weather {
-        @apply border-2 rounded-lg p-2 border-blue-800;
-        &__city {
-            @apply font-bold italic text-lg text-gray-800;
-        }
-        &__temp {
-            @apply text-sm text-gray-700 font-semibold;
-        }
-    }
 </style>

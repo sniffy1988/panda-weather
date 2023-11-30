@@ -10,10 +10,7 @@
                             <Transition name="fade">
                                 <div class="search__autocomplete__list__item__text">
                                     {{ cityName.name }}, {{ cityName.state }}, {{ cityName.country }}
-                                    <span class="search__autocomplete__list__item__icon" @click="addCity(cityName)"
-                                        v-show="!isAlreadyHaveCity(cityName)">+</span>
-                                    <span class="search__autocomplete__list__item__icon" @click="removeCity(cityName)"
-                                        v-show="isAlreadyHaveCity(cityName)">-</span>
+                                    <span class="search__autocomplete__list__item__icon" @click="addCity(cityName)">+</span>
                                 </div>
                             </Transition>
                         </div>
@@ -34,7 +31,7 @@ const { $api } = useNuxtApp();
 const store = useCityStore();
 
 const city = ref('');
-const emits = defineEmits(['toggle'])
+const emits = defineEmits(['addCity'])
 
 const makeSearch = async () => {
     if (city.value.length >= PASSLIMIT) {
@@ -54,22 +51,14 @@ const makeClear = () => {
     citiesList.value = [];
 }
 const addCity = (city: any) => {
-    store.addCity({
+    emits('addCity', {
         name: city.name,
         lat: city.lat,
         lon: city.lon
     });
-    citiesList.value = [];
-    emits('toggle');
+    makeClear();
 }
-const removeCity = (city: ICity) => {
-    store.removeCity(city);
-    citiesList.value = [];
-    emits('toggle');
-}
-const isAlreadyHaveCity = (name: any) => {
-    return store.cities.find(el => el.lat === name.lat && el.lon === name.lon);
-};
+
 </script>
     
 <style>

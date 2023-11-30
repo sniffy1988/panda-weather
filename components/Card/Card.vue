@@ -3,15 +3,12 @@
         <div class="weather__city">{{ city.name }}</div>
         <WeatherIcon v-if="weather" :name="weather.weather[0].icon" day />
         <div class="weather__temp" v-if="weather">{{ weather.main.temp }} &#8451;</div>
+        <div class="weather__cond">{{ weather.weather[0].description }}</div>
+
         <div class="flex">
-            <div class="weather__cond">{{ weather.weather[0].description }}</div>
             <div class="mr-2">5 Days</div>
             <Switcher :checked="!isDay" @change="toggleDay"></Switcher>
         </div>
-        <div>
-            Fav true/false
-        </div>
-
         <div>
             <highchart :options="chartOptions" />
         </div>
@@ -30,6 +27,7 @@ const props = defineProps({
 });
 import('highcharts/highcharts').Options;
 const { $api } = useNuxtApp();
+const emits = defineEmits(['delete', 'fav'])
 const weather = ref(null) as unknown;
 const forecast = ref(null) as unknown;
 const chartOptions = ref({
@@ -129,5 +127,16 @@ watch(forecast, () => {
 </script>
     
 <style>
-    
+.weather {
+    @apply border-2 rounded-lg p-2 border-blue-800 relative;
+    &__city {
+        @apply font-bold italic text-lg text-gray-800;
+    }
+    &__temp {
+        @apply text-sm text-gray-700 font-semibold;
+    }
+    &__delete {
+        @apply p-2 bg-gray-400 rounded text-sm absolute right-0 top-0;
+    }
+}
 </style>
