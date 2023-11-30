@@ -12,7 +12,6 @@
             </div>
         </div>
         <DefaultCity v-else />
-        <div>Store is: {{ citiesList }}</div>
     </div>
 </template>
     
