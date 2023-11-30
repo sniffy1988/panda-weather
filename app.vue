@@ -10,9 +10,11 @@
     </div>
     <div class="app__main">
       <div class="container mx-auto">
-        <NuxtPage />
+        <NuxtLayout>
+          <NuxtPage />
+        </NuxtLayout>
         <div>
-          TODO: 1. I18n 2. date-fns 3. Favs
+          TODO: 1. I18n 2. date-fns 3. Favs 4. responsive
         </div>
       </div>
     </div>
